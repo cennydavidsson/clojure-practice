@@ -7,5 +7,7 @@
   (println "What is the input string?")
   (flush)
   (def input (read-line))
-  (printf "%1s has %2d characters" input (count input)))
+  (if (empty? input)
+    (println "String can't be empty")
+    (printf "%1s has %2d characters" input (count input))))
 
