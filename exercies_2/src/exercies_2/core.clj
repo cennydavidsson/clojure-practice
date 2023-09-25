@@ -6,8 +6,10 @@
   [& args]
   (println "What is the input string?")
   (flush)
-  (let [input (read-line)]
-    (if (empty? input)
-      (println "String can't be empty")
-      (printf "%s has %d characters" input (count input)))))
+    (loop [input (read-line)]
+      (if (not (empty? input))
+        (printf "%s has %d characters" input (count input))
+        (do 
+          (println "String can't be empty")
+          (recur (read-line))))))
 
