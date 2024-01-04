@@ -1,11 +1,8 @@
 (ns exercise-10.core
   (:gen-class))
 
-(defn total-cost [[item1 item2 item3]]
-  (let [item1 (* (:quantiy item1) (:price item1))
-        item2 (* (:quantiy item2) (:price item2))
-        item3 (* (:quantiy item3) (:price item3))
-        sum (+ item1 item2 item3)
+(defn total-cost [items]
+  (let [sum (reduce + (map #(* (% :price) (% :quantiy)) items))
         tax (* sum 0.055)
         total (+ sum tax)]
     (str "Subtotal: $" (format "%.2f" (double sum))
@@ -26,12 +23,10 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (let [price1 (ask-number! "Enter the price of item 1:")
-        quantity1 (ask-number! "Enter the quantity of item 1")
-        price2 (ask-number! "Enter the price of item 2:")
-        quantity2 (ask-number! "Enter the quantity of item 2")
-        price3 (ask-number! "Enter the price of item 3:")
-        quantity3 (ask-number! "Enter the quantity of item 3")]
-    (println (total-cost [{:quantiy price1 :count quantity1}
-                          {:quantiy price2 :count quantity2}
-                          {:quantiy price3 :count quantity3}]))))
+  (loop [count 1 items []]
+    (let [price (ask-number! (format "Enter the price of item %d:" count))]
+      (if (zero? price)
+        (println (total-cost items))
+        (let [quantiy (ask-number! (format "Enter the quantity of item %d" count))]
+          (recur (inc count) (conj items {:price price :quantiy quantiy})))))))
+
