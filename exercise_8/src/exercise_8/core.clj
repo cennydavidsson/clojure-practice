@@ -23,7 +23,7 @@
       "There are " leftover " leftover pieces.")))
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Pizza party"
   [& args]
   (let [people (ask-number! "How many people?")
         pizzas (ask-number! "How many pizzas do you have?")
