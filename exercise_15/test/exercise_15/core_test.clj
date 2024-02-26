@@ -4,9 +4,8 @@
 
 (deftest a-test
   (testing "Password validator"
-    (is (= true 
-           (validate-user :username "foo" :password "123" :store {"foo" "123"})))
-    (is (= false 
-           (validate-user :username "foo" :password "123" :store {"bar" "123", "foo" "321"})))
-    (is (= false 
-           (validate-user :username "foo" :password "123" :store { "foo" "abc"})))))
+    (are [expected username password store] 
+         (= expected (validate-user :username username :password password :store store))
+         true "foo" "123" {"foo" "123"}
+         false "foo" "123" {"bar" "123", "foo" "321"}
+         false "foo" "123" {"foo" "abc"})))
