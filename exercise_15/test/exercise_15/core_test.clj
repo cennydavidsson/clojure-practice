@@ -5,7 +5,7 @@
 (deftest a-test
   (testing "Password validator"
     (are [expected username password store] 
-         (= expected (validate-user :username username :password password :store store))
+         (= expected (validate-user username password store))
          true "foo" "123" {"foo" "123"}
          false "foo" "123" {"bar" "123", "foo" "321"}
          false "foo" "123" {"foo" "abc"})))

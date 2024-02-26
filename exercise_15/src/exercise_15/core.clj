@@ -10,7 +10,7 @@
   (flush)
   (read-line))
 
-(defn validate-user [& {:keys [username password store]}]
+(defn validate-user [username password store]
   (= password (store username)))
 
 (defn -main
@@ -18,7 +18,7 @@
   [& args]
   (let [username (ask-text! "What is the username?")
         password (ask-text! "What is the password?")]
-    (if (validate-user :username username :password password :store "asdf")
+    (if (validate-user username password "asdf")
       (println "Welcome!")
       (println "I don't know you."))))
 
