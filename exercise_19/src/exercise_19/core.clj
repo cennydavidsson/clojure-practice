@@ -19,7 +19,7 @@
   (ask-text! parse-double "Must be a natural number" text))
 
 (defn bmi [{:keys [height weight]}]
-  (* 703 (/ weight (* height height))))
+  (int (* 703 (/ weight (* height height)))))
 
 (defn health [bmi]
   (cond 
@@ -27,7 +27,7 @@
     (< 25 bmi) :overweight
     :else :normal))
 
-(efn -main
+(defn -main
   "I don't do a whole lot ... yet."
   [& args]
   (let [weight (ask-number! "What is your weight?")
