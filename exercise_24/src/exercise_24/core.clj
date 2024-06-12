@@ -1,4 +1,5 @@
 (ns exercise-24.core
+  (:use [clojure.string :only (join)])
   (:gen-class))
 
 (defn- exit! [message]
@@ -20,13 +21,16 @@
 (defn anagram? [s1 s2]
   (= (sort s1) (sort s2)))
 
+(defn anagram-response [first second]
+  (join " " (if (anagram? first second)
+              [first "and" second "are anagrams"]
+              [first "and" second "are not anagrams"])))
+
 (defn -main
   "Anagram checker"
   [& args]
   (println "Enter two strings and I'll tell you if they are anagrams:")
   (let [first (ask-text! "Enter the first string:")
         second (ask-text! "Enter the second string:")]
-    (if (anagram? first second)
-      (println first "and" second "are anagrams")
-      (println first "and" second "are not anagrams"))))
+    (println (anagram-response first second))))
 
